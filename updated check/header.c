@@ -35,7 +35,6 @@ int decrypt_menu(){
     printf("1)easy decryption\n2)medium decryption\n");
     printf("3)hard decryption\n");
     scanf("%d",&x);
-    printf("Enter a string:\n");
     fflush(stdin);
     return menuf(x);
 
@@ -44,7 +43,7 @@ int decrypt_menu(){
 
 void easy_encrypt()
 {
-    char x[20];
+    char x[100];
     fflush(stdin);
     gets(x);
     fflush(stdin);
@@ -58,7 +57,7 @@ void easy_encrypt()
 
 void easy_decrypt()
 {
-    char x[20];
+    char x[100];
     fflush(stdin);
     gets(x);
     fflush(stdin);
