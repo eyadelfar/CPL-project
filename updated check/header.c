@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <conio.h>
@@ -23,12 +24,15 @@ void ma7_decryption(char text[MAX]) {
 		text[i] = text[i] - k;
 		printf("%c", text[i]);
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
 int menuf(x){
         switch (x)
     {
+    case -1:
+    return -1;
+    break;
     case 1:
         return 1;
         break;
@@ -36,7 +40,6 @@ int menuf(x){
         return 2;
         break;
     case 3:
-        printf("Enter a word or sentence :\n");
         return 3;
         break;
     
@@ -66,20 +69,20 @@ int decrypt_menu(){
 }
 
 //the rule of vigenere cipher for encrypt is C(cipher)=P(text)+K(key) mod 26(number of alphabets)
-void vigenere_encrypt(char *Text,char *Key)
+void vigenere_encrypt(char *Text,char *Key) // The function accepts two parameters text array and text key
 {
-    fflush(stdin);
+    fflush(stdin); // buffer because of usage of scanf and gets
     int klen=strlen(Key),encVal;
-    for (int i = 0;i<strlen(Text); i++) // lower((97-122)
+    for (int i = 0;i<strlen(Text); i++) //looping through the text
         {
-            if(isalpha(Text[i]))
-            {                  //105-97=8   +      117-97= 20   28   %26=2    2+97=99   = c      
-                               // 121-97=24 +      3       27  1+97 =98=b                                     
+            if(isalpha(Text[i])) // checking if the character is alphabetical or special charachter
+            {    
+                // ex. 'y' -> 121 -97 + 'd' -> 100-97 = 3, 24+3 = 27 , 27%26 = 1 , 1+97 = 98 = b                    
                 encVal=(( (int)Text[i]-97 + ((int)Key[ i%klen ]-97) ) % 26) +97;
                 printf("%c",(char)encVal);
             }
 
-            else
+            else //any special charachter won't be ciphered 
                 {
                 printf("%c",Text[i]);
                 }   
@@ -90,16 +93,19 @@ void vigenere_decrypt(char *CText,char*Key)
 {
         fflush(stdin);
         int klen=strlen(Key),decVal;
-        for (int i = 0;i<strlen(CText); i++) // lower((97-122) 
+        for (int i = 0;i<strlen(CText); i++) 
         {
             if(isalpha(CText[i]))
             {
-                //           99-97=2       -   (117-97)=20 = -18 %26 = 8+97= 105
-                //           98-97=1       -   (100-97)=3  = !! -2 % 26 !! = 24+97=121->y ??????????                                                 
+                //problem ->  98-97=1       -   (100-97)=3  = !! -2 % 26 !! = 24+97=121->y ??
+                /*fixed! 'b' -> 98 -97 + 'd' -> 100-97 = 3 , -1+3 = -2
+                ,  -2 % 26 = 24
+                (but C can't mod it correctly so it gives us -2 not 24 so we added 26 with rule (-x%y= -x+y%y))
+                , 24+97 = 121 = y */
                 decVal=((( (int)CText[i]-97 - ((int)Key[ i%klen ]-97) )) +26) % 26 +97;
                 printf("%c",(char)decVal);
             }
-            else
+            else //because any special charachter didn't got ciphered 
                 {
                 printf("%c",CText[i]);
                 } 
@@ -154,4 +160,12 @@ for(i = 0;(i<MAX && msg[i] != '\0'); ++i)
         }
     }
 return msg;
+}
+void cls() //fake clear screen function
+{
+    int x;
+    for ( x = 0; x < 3; x++ ) 
+    {
+        printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
 }
