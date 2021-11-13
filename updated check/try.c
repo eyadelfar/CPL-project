@@ -3,12 +3,15 @@ int menuf(x){
         switch (x)
     {
     case 1:
+        printf("Enter a string:\n");
         return 1;
         break;
     case 2:
+        printf("Enter a string:\n");
         return 2;
         break;
     case 3:
+        printf("Enter a string:\n");
         return 3;
         break;
     
@@ -24,7 +27,6 @@ int encrypt_menu(){
     printf("1)easy encryption\n2)medium encryption\n");
     printf("3)hard encryption\n");
     scanf("%d",&x);
-    printf("Enter a string:\n");
     return menuf(x);
 }
 int decrypt_menu(){
